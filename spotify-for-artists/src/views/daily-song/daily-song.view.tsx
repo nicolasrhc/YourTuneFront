@@ -121,10 +121,6 @@ export class _DailySongView extends Component<DailySongViewProps, DailySongViewS
         }
     }
 
-    async pruebaToken():Promise<void> {
-        await new PruebaAPI().refreshToken();
-    }
-
     render (): ReactNode {
         return (
             <Fragment>

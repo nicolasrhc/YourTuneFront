@@ -251,14 +251,6 @@ export class PruebaAPI {
         }
     }
 
-    async refreshToken (): Promise<void> {
-        try {
-            await this.get("spotify/refresh-token");
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     async crearComunidad (nombre: string, descripcion: string, artistas: string[]): Promise<Undefinable<AxiosResponse<SPCommunity>>> {
         try {
             return await this.post("communities", { nombre, descripcion, artistas });
