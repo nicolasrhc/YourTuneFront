@@ -1,11 +1,13 @@
 import { Button } from "antd";
-import { Component, ReactNode } from "react";
+import { CSSProperties, Component, ReactNode } from "react";
 
 interface SPButtonProps {
     className?: string;
     type?: "link" | "text" | "ghost" | "default" | "primary" | "dashed" | undefined;
-    onClick: ((event: React.MouseEvent<HTMLElement, MouseEvent>) => void) | undefined;
+    onClick: ((event: any) => void) | undefined;
     children: ReactNode;
+    style?: CSSProperties;
+    disabled?: boolean;
 }
 
 export class SPButton extends Component<SPButtonProps> {
@@ -15,6 +17,9 @@ export class SPButton extends Component<SPButtonProps> {
                 onClick={this.props.onClick}
                 className={this.props.className}
                 type={this.props.type}
+                shape="round"
+                style={this.props.style}
+                disabled={this.props.disabled}
             >
                 {this.props.children}
             </Button>

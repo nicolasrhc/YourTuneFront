@@ -1,24 +1,57 @@
-import { Component, Fragment, ReactNode } from "react";
-import { BrowserRouter, Route, Switch,  } from "react-router-dom";
-import { SPHeader } from "../../components/header/sp-header.component";
+import { Component, ReactNode } from "react";
+import { BrowserRouter, Redirect, Route, Switch,  } from "react-router-dom";
 import { LoginView } from "../login/login.view";
-import { PruebaView } from "../prueba/prueba.view";
+import { ReactCookieProps, withCookies } from "react-cookie";
+import { DashboardView } from "../dashboard/dashboard.view";
+import { DailySongView } from "../daily-song/daily-song.view";
+import { PlaylistsView } from "../playlists/playlists.view";
 
-export class RouterView extends Component {
+export class _RouterView extends Component<ReactCookieProps> {
+    get isLogged(): boolean {
+        return !!this.props.cookies?.get("token");
+    }
+
+    get wantLog(): boolean {
+        return !!this.props.cookies?.get("wantLog");
+    }
+
+    get isArtistSelected(): boolean {
+        return !!this.props.cookies?.get("artist");
+    }
+
     render(): ReactNode {
         return (
             <BrowserRouter>
-                <SPHeader />
                 <Switch>
-                    <Route path={"/login"} component={LoginView}/>
-                    <Route path={"/view"} component={PruebaView}/>
-                    <Route path={"/"}>
-                        <Fragment>
-                            <div>Home</div>
-                        </Fragment>
+                    <Route exact path={"/"}>
+                        { () => {
+                            return <Redirect to={"/login"}/>}
+                        }
                     </Route>
+                    <Route path={"/login"}>
+                        { (props) => {
+                            return !this.isLogged ? (<LoginView {...props} />) : (<Redirect to={"/dashboard/home"}/>)}
+                        }
+                    </Route>
+                    <Route path={"/dashboard"}>
+                        { (props) => {
+                            return this.wantLog ? (<DashboardView {...props} />) : (<Redirect to={"/login"}/>)}
+                        }
+                    </Route>
+                    {/* <Route path={"/daily-song"}>
+                        { (props) => {
+                            return this.isLogged ? (<DailySongView {...props} />) : (<Redirect to={"/login"}/>)}
+                        }
+                    </Route>
+                    <Route path={"/playlists"}>
+                        { (props) => {
+                            return this.isLogged ? (<PlaylistsView {...props} />) : (<Redirect to={"/login"}/>)}
+                        }
+                    </Route> */}
                 </Switch>
             </BrowserRouter>
         )
     }
 }
+
+export const RouterView = withCookies(_RouterView);
