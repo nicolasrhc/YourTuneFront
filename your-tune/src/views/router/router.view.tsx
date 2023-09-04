@@ -3,8 +3,6 @@ import { BrowserRouter, Redirect, Route, Switch,  } from "react-router-dom";
 import { LoginView } from "../login/login.view";
 import { ReactCookieProps, withCookies } from "react-cookie";
 import { DashboardView } from "../dashboard/dashboard.view";
-import { DailySongView } from "../daily-song/daily-song.view";
-import { PlaylistsView } from "../playlists/playlists.view";
 
 export class _RouterView extends Component<ReactCookieProps> {
     get isLogged(): boolean {

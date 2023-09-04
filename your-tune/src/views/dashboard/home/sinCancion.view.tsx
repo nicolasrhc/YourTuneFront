@@ -1,5 +1,5 @@
 import { PlusSquareOutlined } from "@ant-design/icons";
-import { Component, Fragment, ReactNode } from "react";
+import { Component, ReactNode } from "react";
 import { RouteChildrenProps } from "react-router-dom";
 
 export type SinCancionViewProps = RouteChildrenProps;
